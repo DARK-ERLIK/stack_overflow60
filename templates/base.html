@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}StackOverflow Clone{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{{ url_for('questions.questions_home') }}">StackClone</a>
+            |
+            <a href="{{ url_for('questions.questions_home') }}">Вопросы</a>
+            |
+            <a href="#">Популярные</a>
+            |
+            <a href="#">Теги</a>
+
+            {% if session.get('username') %}
+                | Привет, {{ session['username'] }}
+                | <a href="{{ url_for('users.logout') }}">Выйти</a>
+            {% else %}
+                | <a href="{{ url_for('users.login') }}">Войти</a>
+                | <a href="{{ url_for('users.registration') }}">Регистрация</a>
+            {% endif %}
+        </nav>
+    </header>
+
+    <main>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2023 StackOverflow Clone</p>
+    </footer>
+</body>
+</html>

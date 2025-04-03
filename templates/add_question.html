@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Новый вопрос</title>
+</head>
+<body>
+    <h1>Новый вопрос</h1>
+
+    <form method="post" action="{{ url_for('questions.add_question') }}">
+        {{ form.hidden_tag() }}
+
+        <div>
+            <label>Заголовок:</label><br>
+            {{ form.title }}<br>
+            {% if form.title.errors %}
+                <div style="color: red">{{ form.title.errors[0] }}</div>
+            {% endif %}
+            <div>Символов: {{ form.title.data|length if form.title.data else 0 }}/100</div>
+        </div>
+
+        <div>
+            <label>Текст вопроса:</label><br>
+            {{ form.text(rows=10, cols=50) }}<br>
+            {% if form.text.errors %}
+                <div style="color: red">{{ form.text.errors[0] }}</div>
+            {% endif %}
+            <div>Символов: {{ form.text.data|length if form.text.data else 0 }}/5000</div>
+        </div>
+
+        <button type="submit">Опубликовать вопрос</button>
+    </form>
+
+    <p><a href="{{ url_for('questions.questions_home') }}">← Назад к списку вопросов</a></p>
+</body>
+</html>

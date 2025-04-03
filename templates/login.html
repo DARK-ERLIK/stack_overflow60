@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Вход в систему</title>
+</head>
+<body>
+    <h1>Вход в систему</h1>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <form method="post" action="{{ url_for('users.login') }}">
+        {{ form.hidden_tag() }}
+
+        <div>
+            <label>Имя пользователя:</label>
+            {{ form.name(size=32) }}
+            {% if form.name.errors %}
+                <span>{{ form.name.errors[0] }}</span>
+            {% endif %}
+        </div>
+
+        <div>
+            <label>Пароль:</label>
+            {{ form.password(size=32) }}
+            {% if form.password.errors %}
+                <span>{{ form.password.errors[0] }}</span>
+            {% endif %}
+        </div>
+
+        <button type="submit">Войти</button>
+    </form>
+
+    <p>Нет аккаунта? <a href="{{ url_for('users.registration') }}">Зарегистрируйтесь</a></p>
+</body>
+</html>

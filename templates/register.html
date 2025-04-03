@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Регистрация</title>
+</head>
+<body>
+    <h1>Регистрация</h1>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+    <form method="post" action="{{ url_for('users.registration') }}">
+        {{ form.hidden_tag() }}
+
+        <p>
+            {{ form.name.label }}<br>
+            {{ form.name(size=32) }}
+            {% if form.name.errors %}
+                <span>{{ form.name.errors[0] }}</span>
+            {% endif %}
+        </p>
+
+        <p>
+            {{ form.email.label }}<br>
+            {{ form.email(size=32) }}
+            {% if form.email.errors %}
+                <span>{{ form.email.errors[0] }}</span>
+            {% endif %}
+        </p>
+
+        <p>
+            {{ form.password1.label }}<br>
+            {{ form.password1(size=32) }}
+            {% if form.password1.errors %}
+                <span>{{ form.password1.errors[0] }}</span>
+            {% endif %}
+        </p>
+
+        <p>
+            {{ form.password2.label }}<br>
+            {{ form.password2(size=32) }}
+            {% if form.password2.errors %}
+                <span>{{ form.password2.errors[0] }}</span>
+            {% endif %}
+        </p>
+
+        <p>{{ form.button() }}</p>
+    </form>
+
+    <p>Уже есть аккаунт? <a href="{{ url_for('users.login') }}">Войти</a></p>
+</body>
+</html>

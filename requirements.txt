@@ -1,0 +1,5 @@
+flask
+requests
+
+# flask, requests (for those in .txt file) -> pip install -r requirements.txt
+# pip freeze (1st see all then save) > requirements.txt

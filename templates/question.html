@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Вопрос: {{ question.question }}</title>
+</head>
+<body>
+    <h1>{{ question.question }}</h1>
+    <p>{{ question.text }}</p>
+    <p>Автор: {{ question.author }} | {{ question.date }}</p>
+
+    <h2>Ответы ({{ question.answers|length }})</h2>
+
+    {% if not question.answers %}
+        <p>Пока нет ответов. Будьте первым!</p>
+    {% else %}
+        {% for answer in question.answers %}
+            <div>
+                <p>{{ answer.text }}</p>
+                <p>
+                    {% if answer.author == 'Аноним' %}
+                        Анонимный пользователь
+                    {% else %}
+                        {{ answer.author }}
+                    {% endif %}
+                    | {{ answer.date }}
+                </p>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <h3>Ваш ответ</h3>
+    <form method="post" action="{{ url_for('questions.show_question', question_id=question_id) }}">
+        {{ form.hidden_tag() }}
+        <textarea name="text" rows="5" cols="50" placeholder="Напишите ответ..."></textarea><br>
+        <button type="submit">
+            {% if session.get('username') %}
+                Отправить ответ
+            {% else %}
+                Ответить как Аноним
+            {% endif %}
+        </button>
+    </form>
+
+    <p><a href="{{ url_for('questions.questions_home') }}">← Назад к списку вопросов</a></p>
+</body>
+</html>
