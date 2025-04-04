@@ -15,6 +15,7 @@ def questions_home():
                            questions=Config.DATABASE,
                            username=session.get('username'))
 
+
 @questions_bp.route("/add-question", methods=["GET", "POST"])
 def add_question():
     if 'username' not in session:

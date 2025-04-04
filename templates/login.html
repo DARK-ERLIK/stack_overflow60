@@ -17,28 +17,21 @@
         {% endif %}
     {% endwith %}
 
-    <form method="post" action="{{ url_for('users.login') }}">
+    <form method="POST" action="{{ url_for('users.login') }}">
         {{ form.hidden_tag() }}
-
         <div>
-            <label>Имя пользователя:</label>
-            {{ form.name(size=32) }}
-            {% if form.name.errors %}
-                <span>{{ form.name.errors[0] }}</span>
-            {% endif %}
+            <label for="email">Email</label>
+            {{ form.email(size=32) }}
         </div>
-
         <div>
-            <label>Пароль:</label>
+            <label for="password">Password</label>
             {{ form.password(size=32) }}
-            {% if form.password.errors %}
-                <span>{{ form.password.errors[0] }}</span>
-            {% endif %}
         </div>
-
-        <button type="submit">Войти</button>
+        <div>
+            {{ form.button() }}
+        </div>
     </form>
 
-    <p>Нет аккаунта? <a href="{{ url_for('users.registration') }}">Зарегистрируйтесь</a></p>
+    <p>Нет аккаунта? <a href="{{ url_for('users.registration') }}">Зарегистрируйтесь</a>
 </body>
 </html>
